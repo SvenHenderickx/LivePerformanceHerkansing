@@ -38,6 +38,8 @@
             this.btnSorteerZuinig = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.btnLooproute = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lbBoodschappen
@@ -127,11 +129,31 @@
             this.btnLooproute.Text = "Looproute";
             this.btnLooproute.UseVisualStyleBackColor = true;
             // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(200, 307);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(174, 23);
+            this.button4.TabIndex = 10;
+            this.button4.Text = "Voeg Product toe";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(396, 307);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(182, 23);
+            this.button5.TabIndex = 11;
+            this.button5.Text = "Voeg Gerecht toe";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(590, 359);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.btnLooproute);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.btnSorteerZuinig);
@@ -143,7 +165,7 @@
             this.Controls.Add(this.lbProducten);
             this.Controls.Add(this.lbBoodschappen);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "BoodschApp";
             this.ResumeLayout(false);
 
         }
@@ -160,6 +182,8 @@
         private System.Windows.Forms.Button btnSorteerZuinig;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button btnLooproute;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
     }
 }
 
