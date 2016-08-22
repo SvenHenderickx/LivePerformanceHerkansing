@@ -46,6 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Administratie.cs" />
+    <Compile Include="Classes\Boodschap.cs" />
+    <Compile Include="Classes\Boodschappenlijst.cs" />
+    <Compile Include="Classes\Gerecht.cs" />
+    <Compile Include="Classes\Ingredrient.cs" />
+    <Compile Include="Classes\Product.cs" />
+    <Compile Include="Classes\Winkel.cs" />
     <Compile Include="GUI\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,7 +87,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Classes\" />
     <Folder Include="Database\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
