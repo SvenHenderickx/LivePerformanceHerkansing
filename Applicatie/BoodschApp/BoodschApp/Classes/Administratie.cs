@@ -49,5 +49,17 @@ namespace BoodschApp.Classes
         {
             return null;
         }
+
+        public static void ProductenDatabase()
+        {
+            try
+            {
+                Producten = DatabaseManager.GetAllProducten();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }

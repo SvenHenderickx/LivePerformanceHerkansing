@@ -13,12 +13,16 @@ namespace BoodschApp.Classes
         public DateTime Houdbaarheid { get; set; }
         public string Hoeveelheid { get; set; }
 
-        public Product(int id, string naam, DateTime houdbaarheid, string hoeveelheid)
+        public Product(int id, string naam, string hoeveelheid)
         {
             Id = id;
             Naam = naam;
-            Houdbaarheid = houdbaarheid;
             Hoeveelheid = hoeveelheid;
+        }
+
+        public override string ToString()
+        {
+            return Naam + " " + Hoeveelheid.ToString();
         }
     }
 }
