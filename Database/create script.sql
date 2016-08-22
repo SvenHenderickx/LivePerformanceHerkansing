@@ -6,8 +6,16 @@ DROP TABLE  Winkel CASCADE CONSTRAINTS;
 DROP TABLE Winkel_product CASCADE CONSTRAINTS;
 DROP TABLE Gerecht_product CASCADE CONSTRAINTS;
 DROP TABLE Boodschappenlijst_product CASCADE CONSTRAINTS;
+DROP TABLE Categorie CASCADE CONSTRAINTS;
 
 -- CREATE TABLES
+
+
+CREATE TABLE Categorie
+(
+	naam varchar2(100) PRIMARY KEY,
+	naamHoofdCategorie varchar2(100) REFERENCES Categorie(naam)
+);
 
 CREATE TABLE Product 
 (
@@ -15,8 +23,7 @@ CREATE TABLE Product
 	naam varchar2(100),
 	houdbaarheid date,
 	hoeveelheid varchar2(100),
-	categorie varchar2(100) UNIQUE ,
-	hoofdCategorie varchar2(100) REFERENCES Product(categorie)
+	categorieNaam varchar2(100) REFERENCES Categorie(naam)
 );
 
 CREATE TABLE Gerecht
