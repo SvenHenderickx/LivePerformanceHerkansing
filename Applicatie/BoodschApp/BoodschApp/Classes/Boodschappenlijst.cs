@@ -46,21 +46,27 @@ namespace BoodschApp.Classes
             }
         }
 
+        /// <summary>
+        /// Voegt een gerecht toe, dit betekend alle producten van een gerecht
+        /// </summary>
+        /// <param name="gerecht"></param>
         public void VoegGerechtToe(Gerecht gerecht)
         {
+            Gerecht tempGerecht = gerecht;
             foreach (Boodschap b in Boodschappen)
             {
-                foreach (Ingredrient g in gerecht.Ingredrienten)
+                foreach (Ingredrient g in tempGerecht.Ingredrienten)
                 {
                     if (b.Product.Id == g.Product.Id)
                     {
                         b.Aantal++;
-                    }
-                    else
-                    {
-                        Boodschappen.Add(new Boodschap(g.Product, 1));
+                        tempGerecht.Ingredrienten.Remove(g);
                     }
                 }
+            }
+            foreach (Ingredrient i in tempGerecht.Ingredrienten)
+            {
+                Boodschappen.Add(new Boodschap(i.Product, 1));
             }
         }
 

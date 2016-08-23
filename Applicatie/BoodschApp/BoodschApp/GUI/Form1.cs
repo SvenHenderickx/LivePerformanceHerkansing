@@ -39,7 +39,6 @@ namespace BoodschApp
 
         private void RefreshInfo()
         {
-            
             try
             {
                 Administratie.ProductenDatabase();
@@ -65,7 +64,6 @@ namespace BoodschApp
             }
             catch (Exception e)
             {
-
                 MessageBox.Show(e.Message, "Error");
             }
         }
@@ -85,6 +83,22 @@ namespace BoodschApp
                     MessageBox.Show(ex.Message);
                 }
                 
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (lbGerechten.SelectedIndex >= 0)
+            {
+                try
+                {
+                    Administratie.Boodschappenlijst.VoegGerechtToe(Administratie.Gerechten[lbGerechten.SelectedIndex]);
+                    RefreshInfo();
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message);
+                }
             }
         }
     }
