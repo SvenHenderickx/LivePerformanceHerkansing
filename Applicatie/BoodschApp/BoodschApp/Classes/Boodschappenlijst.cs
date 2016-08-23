@@ -70,6 +70,7 @@ namespace BoodschApp.Classes
                     if (g.Product.Id == b.Product.Id)
                     {
                         b.Aantal++;
+                        DatabaseManager.BoodschappenAantalAanpassen(b);
                         tempIngredrients.Add(g);
                     }
                 }
@@ -79,6 +80,7 @@ namespace BoodschApp.Classes
                 foreach (Ingredrient i in gerecht.Ingredrienten)
                 {
                     Boodschappen.Add(new Boodschap(i.Product, 1));
+                    DatabaseManager.BoodschapToevoegen(new Boodschap(i.Product, 1));
                 }
             }
             else
@@ -88,6 +90,7 @@ namespace BoodschApp.Classes
                     if (!tempIngredrients.Contains(i))
                     {
                         Boodschappen.Add(new Boodschap(i.Product, 1));
+                        DatabaseManager.BoodschapToevoegen(new Boodschap(i.Product, 1));
                     }
                 }
             }

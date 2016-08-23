@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 using BoodschApp.Classes;
 
 namespace BoodschApp
@@ -155,9 +156,10 @@ namespace BoodschApp
         private void btnSorteerZuinig_Click(object sender, EventArgs e)
         {
             string alles = "";
-            foreach (ZuinigeGerechten zg in Administratie.SorterenWeinigRestjes())
+            lbProductenGerechten.Items.Clear();
+            foreach (ZuinigeGerechten zg in Administratie.SorterenZuinigheid())
             {
-                alles += zg.ToString() + "\r";
+                lbProductenGerechten.Items.Add(zg.ToString());
             }
         }
     }

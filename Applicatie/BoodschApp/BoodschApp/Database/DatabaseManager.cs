@@ -385,6 +385,11 @@ namespace BoodschApp
             }
         }
 
+        /// <summary>
+        /// voeg een boodschap toe aan de boodschappenlijst
+        /// </summary>
+        /// <param name="boodschap"></param>
+        /// <returns></returns>
         public static bool BoodschapToevoegen(Boodschap boodschap)
         {
             try
@@ -405,11 +410,35 @@ namespace BoodschApp
             }
         }
 
+        /// <summary>
+        /// verwijder alle boodschappen
+        /// </summary>
+        /// <returns></returns>
         public static bool BoodschappenVerwijderen()
         {
             try
             {
                 OracleCommand command = CreateOracleCommand("DELETE FROM BOODSCHAPPENLIJST_PRODUCT");
+
+                return ExecuteNonQuery(command);
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+            finally
+            {
+                _Connection.Close();
+            }
+        }
+
+        public static bool BoodschappenAantalAanpassen(Boodschap boodschap)
+        {
+            try
+            {
+                OracleCommand command = CreateOracleCommand("UPDATE Boodschappenlijst_product SET Aantal = :aantal WHERE productId = :productId");
+                command.Parameters.Add(":productId", boodschap.Product.Id);
+                command.Parameters.Add(":aantal", boodschap.Aantal);
 
                 return ExecuteNonQuery(command);
             }

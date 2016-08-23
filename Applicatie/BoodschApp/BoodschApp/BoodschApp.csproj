@@ -59,6 +59,7 @@
     <Compile Include="Classes\Winkel.cs" />
     <Compile Include="Classes\WinkelOrde.cs" />
     <Compile Include="Classes\ZuinigeGerechten.cs" />
+    <Compile Include="Classes\ZuinigheidIngredrient.cs" />
     <Compile Include="Database\DatabaseManager.cs" />
     <Compile Include="Exceptions\BoodschapException.cs" />
     <Compile Include="GUI\Form1.cs">

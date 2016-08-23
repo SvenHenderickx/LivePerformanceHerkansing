@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BoodschApp.Classes
 {
@@ -53,25 +55,140 @@ namespace BoodschApp.Classes
         }
 
         /// <summary>
-        /// Geeft een overzicht van de combinaties van gerechten die samen het minste resten over laten
+        /// Sorteerd de combinaties van gerechten
         /// </summary>
-        public static List<ZuinigeGerechten> SorterenWeinigRestjes()
+        /// <returns></returns>
+        public static List<ZuinigeGerechten> SorterenZuinigheid()
         {
-            List<ZuinigeGerechten> zuinigeGerechten = new List<ZuinigeGerechten>();
-            foreach (Gerecht ge in Gerechten)
+            List<ZuinigeGerechten> tempZuinig = new List<ZuinigeGerechten>();
+            tempZuinig = GetZuinigeGerechten();
+            foreach (ZuinigeGerechten zg in tempZuinig)
             {
-                ZuinigeGerechten tempZuinigeGerechten = new ZuinigeGerechten();
-                tempZuinigeGerechten.GerechtToevoegen(ge);
-                foreach (Gerecht ger in Gerechten)
+                List<ZuinigheidIngredrient> alleIngredrienten = new List<ZuinigheidIngredrient>();
+                int count = 0;
+                foreach (Gerecht g in zg.Gerechten)
                 {
-                    if (!tempZuinigeGerechten.GerechtToevoegen(ger))
+                    
+                    foreach (Ingredrient i in g.Ingredrienten)
                     {
-                        break;
+                        ZuinigheidIngredrient temp = new ZuinigheidIngredrient();
+                        temp.ingredrient = i;
+                        temp.id = count;
+                        temp.perGerecht = 0;
+                        temp.samen = 0;
+                        temp.vermindering = 0;
+                        alleIngredrienten.Add(temp);
+                        
+                    }
+                    count++;
+                }
+                foreach (ZuinigheidIngredrient zi in alleIngredrienten)
+                {
+                    foreach (ZuinigheidIngredrient zig in alleIngredrienten)
+                    {
+                        if (zi.id != zig.id && zi.ingredrient.Product.Id == zig.ingredrient.Product.Id)
+                        {
+                            zi.perGerecht += 100 - zi.ingredrient.VerpakkingsProcent;
+                            zi.samen = zi.samen + zi.ingredrient.VerpakkingsProcent + zig.ingredrient.VerpakkingsProcent;
+                        }
                     }
                 }
-                zuinigeGerechten.Add(tempZuinigeGerechten);
+                int verminderingTotaal = 0;
+
+                foreach (ZuinigheidIngredrient zi in alleIngredrienten)
+                {
+                    verminderingTotaal += zi.perGerecht - zi.samen;
+                }
+                zg.Vermindering = verminderingTotaal;
             }
-            return new List<ZuinigeGerechten>();
+            tempZuinig.Sort();
+            return tempZuinig;
+        }
+
+        /// <summary>
+        /// Geeft een overzicht van de combinaties van gerechten die samen het minste resten over laten
+        /// </summary>
+        public static List<ZuinigeGerechten> GetZuinigeGerechten()
+        {
+            List<ZuinigeGerechten> zuinigeGerechten = new List<ZuinigeGerechten>();
+            ZuinigeGerechten nieuweZuinige = new ZuinigeGerechten();
+            foreach (Gerecht g in Gerechten)
+            {
+                foreach (Gerecht ge in Gerechten)
+                {
+                    foreach (Gerecht ger in Gerechten)
+                    {
+                        foreach (Gerecht gere in Gerechten)
+                        {
+                            List<Gerecht> temp = new List<Gerecht>();
+                            temp.Add(g);
+                            temp.Add(ge);
+                            temp.Add(ger);
+                            temp.Add(gere);
+                            int checkDouble = 0;
+                            foreach (Gerecht _ger in temp)
+                            {
+                                if (_ger.Naam == g.Naam)
+                                {
+                                    checkDouble++;
+                                }
+                            }
+                            foreach (Gerecht _ger in temp)
+                            {
+                                if (_ger.Naam == ge.Naam)
+                                {
+                                    checkDouble++;
+                                }
+                            }
+                            foreach (Gerecht _ger in temp)
+                            {
+                                if (_ger.Naam == ger.Naam)
+                                {
+                                    checkDouble++;
+                                }
+                            }
+                            foreach (Gerecht _ger in temp)
+                            {
+                                if (_ger.Naam == gere.Naam)
+                                {
+                                    checkDouble++;
+                                }
+                            }
+                            if (checkDouble == 4 && CheckGeweest(zuinigeGerechten, new ZuinigeGerechten(temp)))
+                            {
+                                zuinigeGerechten.Add(new ZuinigeGerechten(temp));
+                            }
+                        }
+                    }
+                }
+            }
+            return zuinigeGerechten;
+        }
+
+        /// <summary>
+        /// Kijkt in alle combinaties van gerechten of de combinatie al bestaat. DUS VERSCHILLENDE VOLGORDE IS HETZELFDE
+        /// </summary>
+        /// <param name="zuinigeGerechten"></param>
+        /// <param name="nieuwe"></param>
+        /// <returns></returns>
+        public static bool CheckGeweest(List<ZuinigeGerechten> zuinigeGerechten, ZuinigeGerechten nieuwe)
+        {
+            foreach (ZuinigeGerechten zg in zuinigeGerechten)
+            {
+                int check = 0;
+                foreach (Gerecht g in zg.Gerechten)
+                {
+                    if (nieuwe.Gerechten.Contains(g))
+                    {
+                        check++;
+                    }
+                }
+                if (check == 4)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         /// <summary>
@@ -104,6 +221,9 @@ namespace BoodschApp.Classes
             }
         }
 
+        /// <summary>
+        /// haalt alle winkels van de database
+        /// </summary>
         public static void WinkelsDatabase()
         {
             try
@@ -116,6 +236,9 @@ namespace BoodschApp.Classes
             }
         }
 
+        /// <summary>
+        /// Haalt de boodschappenlijst van de database
+        /// </summary>
         public static void BoodschappenlijstDatabase()
         {
             try

@@ -92,7 +92,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(455, 12);
+            this.button2.Location = new System.Drawing.Point(447, 12);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(131, 23);
             this.button2.TabIndex = 5;
@@ -161,9 +161,9 @@
             // lbProductenGerechten
             // 
             this.lbProductenGerechten.FormattingEnabled = true;
-            this.lbProductenGerechten.Location = new System.Drawing.Point(584, 76);
+            this.lbProductenGerechten.Location = new System.Drawing.Point(584, 11);
             this.lbProductenGerechten.Name = "lbProductenGerechten";
-            this.lbProductenGerechten.Size = new System.Drawing.Size(170, 95);
+            this.lbProductenGerechten.Size = new System.Drawing.Size(430, 355);
             this.lbProductenGerechten.TabIndex = 12;
             // 
             // numAantal
@@ -196,7 +196,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(766, 367);
+            this.ClientSize = new System.Drawing.Size(1026, 371);
             this.Controls.Add(this.btnClearBoodschappenlijst);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numAantal);
