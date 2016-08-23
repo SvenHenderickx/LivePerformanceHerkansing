@@ -76,7 +76,22 @@ namespace BoodschApp.Classes
         /// <param name="winkel"></param>
         public void SorteerLoopRoute(Winkel winkel)
         {
-            //implement
+            List<Boodschap> tempBoodschappen = new List<Boodschap>();
+            winkel.Producten.Sort();
+            foreach (WinkelOrde wo in winkel.Producten)
+            {
+                foreach (Boodschap b in Boodschappen)
+                {
+                    if (b.Product.Id == wo.Product.Id)
+                    {
+                        if (!tempBoodschappen.Contains(b))
+                        {
+                            tempBoodschappen.Add(b);
+                        }
+                    }
+                }
+            }
+            Boodschappen = tempBoodschappen;
         }
 
         /// <summary>

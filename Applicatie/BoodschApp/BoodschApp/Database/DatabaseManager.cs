@@ -153,6 +153,10 @@ namespace BoodschApp
                 }
         }
 
+        /// <summary>
+        /// De hoofdmethode waarmee alle gerechten worden toegevoegd aan het systeem. Deze haalt eerst de gerechten op en voegt daarna de ingredrienten erbij
+        /// </summary>
+        /// <returns></returns>
         public static List<Gerecht> GetAllGerechtenMetProducten()
         {
             List<Gerecht> gerechten = new List<Gerecht>();
@@ -164,6 +168,10 @@ namespace BoodschApp
             return gerechten;
         }
 
+        /// <summary>
+        /// Alle gerechten die in de database staan ophalen
+        /// </summary>
+        /// <returns></returns>
         public static List<Gerecht> GetAllGerechten()
         {
             try
@@ -195,6 +203,12 @@ namespace BoodschApp
             }
         }
 
+        /// <summary>
+        /// haalt alle ingredrienten op van een gerecht, ook de producten zijn toegevoegd
+        /// </summary>
+        /// <param name="gerecht"></param>
+        /// <param name="producten"></param>
+        /// <returns>De lijst van ingredrient</returns>
         public static List<Ingredrient> GetIngredrientenVanGerecht(Gerecht gerecht, List<Product> producten)
         {
             try
@@ -218,6 +232,92 @@ namespace BoodschApp
                     tempIngredrients.Add(new Ingredrient(product, verpakkingsProcent));
                 }
                 return tempIngredrients;
+            }
+            catch (OracleException e)
+            {
+
+                throw e;
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+            finally
+            {
+                _Connection.Close();
+            }
+        }
+
+        /// <summary>
+        /// Alle winkels met daarbij alle producten die zij verkopen
+        /// </summary>
+        /// <returns></returns>
+        public static List<Winkel> AlleWinkelsMetProducten()
+        {
+            List<Winkel> tempWinkels = new List<Winkel>();
+            tempWinkels = GetAllWinkels();
+            foreach (Winkel w in tempWinkels)
+            {
+                w.VoegProductentoe(GetProductenFromWinkel(w, Administratie.Producten));
+            }
+            return tempWinkels;
+        }
+
+        public static List<Winkel> GetAllWinkels()
+        {
+            try
+            {
+                List<Winkel> tempWinkels = new List<Winkel>();
+                OracleCommand cmd = CreateOracleCommand("SELECT * FROM Winkel");
+                OracleDataReader reader = ExecuteQuery(cmd);
+                while (reader.Read())
+                {
+                    int id = Convert.ToInt32(reader["Id"]);
+                    string naam = Convert.ToString(reader["Naam"]);
+                    tempWinkels.Add(new Winkel(id, naam));
+                }
+                return tempWinkels;
+            }
+            catch (OracleException e)
+            {
+
+                throw e;
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+            finally
+            {
+                _Connection.Close();
+            }
+        }
+
+        public static List<WinkelOrde> GetProductenFromWinkel(Winkel winkel, List<Product> producten)
+        {
+            try
+            { 
+                List<WinkelOrde> tempWinkels = new List<WinkelOrde>();
+                OracleCommand cmd = CreateOracleCommand("SELECT * FROM Winkel_product WHERE winkelId = :winkelId");
+                cmd.Parameters.Add("winkelId", winkel.Id);
+                OracleDataReader reader = ExecuteQuery(cmd);
+                while (reader.Read())
+                {
+                    int productId = Convert.ToInt32(reader["productId"]);
+                    int looproute = Convert.ToInt32(reader["looproute"]);
+                    Product product = null;
+                    foreach (Product p in producten)
+                    {
+                        if (p.Id == productId)
+                        {
+                            product = p;
+                        }
+                    }
+                    tempWinkels.Add(new WinkelOrde(product, looproute));
+                }
+                return tempWinkels;
             }
             catch (OracleException e)
             {

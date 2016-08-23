@@ -58,6 +58,9 @@ namespace BoodschApp.Classes
             return null;
         }
 
+        /// <summary>
+        /// Haalt alle producten uit de database en zet ze in de producten lijst
+        /// </summary>
         public static void ProductenDatabase()
         {
             try
@@ -70,11 +73,26 @@ namespace BoodschApp.Classes
             }
         }
 
+        /// <summary>
+        /// haalt alle gerechten uit de database en zet ze in de gerechten lijst
+        /// </summary>
         public static void GerechtenDatabase()
         {
             try
             {
                 Gerechten = DatabaseManager.GetAllGerechtenMetProducten();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public static void WinkelsDatabase()
+        {
+            try
+            {
+                Winkels = DatabaseManager.AlleWinkelsMetProducten();
             }
             catch (Exception e)
             {

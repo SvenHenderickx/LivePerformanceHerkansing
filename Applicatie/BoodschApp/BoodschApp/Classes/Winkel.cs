@@ -18,5 +18,23 @@ namespace BoodschApp.Classes
             Naam = naam;
             Producten = new List<WinkelOrde>();
         }
+
+        //methods
+        /// <summary>
+        /// Voegt een lijst van producten toe die geordend zijn
+        /// </summary>
+        /// <param name="producten"></param>
+        public void VoegProductentoe(List<WinkelOrde> producten)
+        {
+            foreach (WinkelOrde wo in producten)
+            {
+                Producten.Add(wo);
+            }
+        }
+
+        public override string ToString()
+        {
+            return Naam;
+        }
     }
 }

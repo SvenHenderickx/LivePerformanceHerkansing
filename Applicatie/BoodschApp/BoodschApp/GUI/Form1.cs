@@ -19,6 +19,7 @@ namespace BoodschApp
             InitializeComponent();
             Administratie.StartUp();
             RefreshInfo();
+            cbWinkels.SelectedIndex = 0;
         }
 
         private void lbGerechten_SelectedIndexChanged(object sender, EventArgs e)
@@ -43,6 +44,7 @@ namespace BoodschApp
             {
                 Administratie.ProductenDatabase();
                 Administratie.GerechtenDatabase();
+                Administratie.WinkelsDatabase();
 
                 lbProducten.Items.Clear();
                 foreach (Product p in Administratie.Producten)
@@ -60,6 +62,12 @@ namespace BoodschApp
                 foreach (Boodschap b in Administratie.Boodschappenlijst.Boodschappen)
                 {
                     lbBoodschappen.Items.Add(b.ToString());
+                }
+
+                cbWinkels.Items.Clear();
+                foreach (Winkel w in Administratie.Winkels)
+                {
+                    cbWinkels.Items.Add(w.ToString());
                 }
             }
             catch (Exception e)
@@ -100,6 +108,12 @@ namespace BoodschApp
                     MessageBox.Show(exception.Message);
                 }
             }
+        }
+
+        private void btnLooproute_Click(object sender, EventArgs e)
+        {
+            Administratie.Boodschappenlijst.SorteerLoopRoute(Administratie.Winkels[cbWinkels.SelectedIndex]);
+            RefreshInfo();
         }
     }
 }

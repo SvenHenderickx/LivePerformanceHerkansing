@@ -100,6 +100,7 @@
             // 
             // cbWinkels
             // 
+            this.cbWinkels.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbWinkels.FormattingEnabled = true;
             this.cbWinkels.Location = new System.Drawing.Point(12, 307);
             this.cbWinkels.Name = "cbWinkels";
@@ -128,10 +129,11 @@
             // 
             this.btnLooproute.Location = new System.Drawing.Point(12, 334);
             this.btnLooproute.Name = "btnLooproute";
-            this.btnLooproute.Size = new System.Drawing.Size(75, 23);
+            this.btnLooproute.Size = new System.Drawing.Size(164, 23);
             this.btnLooproute.TabIndex = 9;
             this.btnLooproute.Text = "Looproute";
             this.btnLooproute.UseVisualStyleBackColor = true;
+            this.btnLooproute.Click += new System.EventHandler(this.btnLooproute_Click);
             // 
             // btnProductToevoegen
             // 
@@ -181,7 +183,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(766, 359);
+            this.ClientSize = new System.Drawing.Size(766, 367);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numAantal);
             this.Controls.Add(this.lbProductenGerechten);
