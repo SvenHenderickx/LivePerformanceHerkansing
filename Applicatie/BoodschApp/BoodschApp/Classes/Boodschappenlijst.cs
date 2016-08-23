@@ -52,21 +52,34 @@ namespace BoodschApp.Classes
         /// <param name="gerecht"></param>
         public void VoegGerechtToe(Gerecht gerecht)
         {
-            Gerecht tempGerecht = gerecht;
+            List<Ingredrient> tempIngredrients = new List<Ingredrient>();
             foreach (Boodschap b in Boodschappen)
             {
-                foreach (Ingredrient g in tempGerecht.Ingredrienten)
+                foreach (Ingredrient g in gerecht.Ingredrienten)
                 {
-                    if (b.Product.Id == g.Product.Id)
+                    if (g.Product.Id == b.Product.Id)
                     {
                         b.Aantal++;
-                        tempGerecht.Ingredrienten.Remove(g);
+                        tempIngredrients.Add(g);
                     }
                 }
             }
-            foreach (Ingredrient i in tempGerecht.Ingredrienten)
+            if (Boodschappen.Count == 0)
             {
-                Boodschappen.Add(new Boodschap(i.Product, 1));
+                foreach (Ingredrient i in gerecht.Ingredrienten)
+                {
+                    Boodschappen.Add(new Boodschap(i.Product, 1));
+                }
+            }
+            else
+            {
+                foreach (Ingredrient i in gerecht.Ingredrienten)
+                {
+                    if (!tempIngredrients.Contains(i))
+                    {
+                        Boodschappen.Add(new Boodschap(i.Product, 1));
+                    }
+                }
             }
         }
 
