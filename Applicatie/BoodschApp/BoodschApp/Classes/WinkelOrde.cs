@@ -17,6 +17,11 @@ namespace BoodschApp.Classes
             this.VolgRoute = volgRoute;
         }
 
+        /// <summary>
+        /// Sorteren op de looproute
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public int CompareTo(WinkelOrde other)
         {
             if (this.VolgRoute > other.VolgRoute)

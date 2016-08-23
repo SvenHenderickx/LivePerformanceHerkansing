@@ -48,6 +48,10 @@ namespace BoodschApp.Classes
             }
         }
 
+        /// <summary>
+        /// Voegt alle boodschappen toe aan de boodschappenlijst
+        /// </summary>
+        /// <param name="inv"></param>
         public void VoegBoodschappenToe(List<Boodschap> inv)
         {
             foreach (Boodschap b in inv)

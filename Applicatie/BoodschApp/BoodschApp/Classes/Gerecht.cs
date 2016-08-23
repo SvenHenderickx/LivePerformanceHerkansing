@@ -30,6 +30,10 @@ namespace BoodschApp.Classes
             Ingredrienten.Add(ingredrient);
         }
 
+        /// <summary>
+        /// Ingredrienten toevoegen aan een gerecht
+        /// </summary>
+        /// <param name="inv"></param>
         public void VoegIngredrientenToe(List<Ingredrient> inv)
         {
             foreach (Ingredrient i in inv)
