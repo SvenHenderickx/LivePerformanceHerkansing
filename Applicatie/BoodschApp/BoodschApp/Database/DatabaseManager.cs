@@ -117,22 +117,10 @@ namespace BoodschApp
             }
         }
 
-        public static void TestConnection()
-        {
-            using (OracleConnection con = _Connection)
-            {
-                try
-                {
-                    con.Open();
-                    con.Close();
-                }
-                catch (Exception e)
-                {
-                    throw new Exception(e.Message);
-                }
-            }
-        }
-
+        /// <summary>
+        /// Alle producten ophalen uit de database
+        /// </summary>
+        /// <returns></returns>
         public static List<Product> GetAllProducten()
         {
                 try
@@ -163,6 +151,88 @@ namespace BoodschApp
                 {
                     _Connection.Close();
                 }
+        }
+
+        public static List<Gerecht> GetAllGerechtenMetProducten()
+        {
+            List<Gerecht> gerechten = new List<Gerecht>();
+            gerechten = GetAllGerechten();
+            foreach (Gerecht g in gerechten)
+            {
+                g.VoegIngredrientenToe(GetIngredrientenVanGerecht(g, GetAllProducten()));
+            }
+            return gerechten;
+        }
+
+        public static List<Gerecht> GetAllGerechten()
+        {
+            try
+            {
+                List<Gerecht> tempGerechten = new List<Gerecht>();
+                OracleCommand cmd = CreateOracleCommand("SELECT * FROM Gerecht");
+                OracleDataReader reader = ExecuteQuery(cmd);
+                while (reader.Read())
+                {
+                    int id = Convert.ToInt32(reader["Id"]);
+                    string naam = Convert.ToString(reader["Naam"]);
+                    tempGerechten.Add(new Gerecht(id, naam));
+                }
+                return tempGerechten;
+            }
+            catch (OracleException e)
+            {
+
+                throw e;
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+            finally
+            {
+                _Connection.Close();
+            }
+        }
+
+        public static List<Ingredrient> GetIngredrientenVanGerecht(Gerecht gerecht, List<Product> producten)
+        {
+            try
+            {
+                List<Ingredrient> tempIngredrients = new List<Ingredrient>();
+                OracleCommand cmd = CreateOracleCommand("SELECT * FROM Gerecht_product WHERE gerechtId = :gerechtId");
+                cmd.Parameters.Add("gerechtId", gerecht.Id);
+                OracleDataReader reader = ExecuteQuery(cmd);
+                while (reader.Read())
+                {
+                    int productId = Convert.ToInt32(reader["productId"]);
+                    int verpakkingsProcent = Convert.ToInt32(reader["verpakkingsProcent"]);
+                    Product product = null;
+                    foreach (Product p in producten)
+                    {
+                        if (p.Id == productId)
+                        {
+                            product = p;
+                        }
+                    }
+                    tempIngredrients.Add(new Ingredrient(product, verpakkingsProcent));
+                }
+                return tempIngredrients;
+            }
+            catch (OracleException e)
+            {
+
+                throw e;
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+            finally
+            {
+                _Connection.Close();
+            }
         }
     }
 }

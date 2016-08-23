@@ -16,5 +16,12 @@ namespace BoodschApp.Classes
             Product = product;
             Aantal = aantal;
         }
+
+        //methods
+
+        public override string ToString()
+        {
+            return Product.Naam + " - " + Aantal;
+        }
     }
 }

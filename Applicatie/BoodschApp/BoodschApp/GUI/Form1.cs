@@ -17,13 +17,19 @@ namespace BoodschApp
         public Form1()
         {
             InitializeComponent();
-            //DatabaseManager.TestConnection();
+            Administratie.StartUp();
             RefreshInfo();
         }
 
         private void lbGerechten_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (lbGerechten.SelectedIndex < 0)
+                return;
+            lbProductenGerechten.Items.Clear();
+            foreach (Ingredrient i in Administratie.Gerechten[lbGerechten.SelectedIndex].Ingredrienten)
+            {
+                lbProductenGerechten.Items.Add(i.Product.ToString());
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -37,18 +43,48 @@ namespace BoodschApp
             try
             {
                 Administratie.ProductenDatabase();
-
+                Administratie.GerechtenDatabase();
 
                 lbProducten.Items.Clear();
                 foreach (Product p in Administratie.Producten)
                 {
                     lbProducten.Items.Add(p.ToString());
                 }
+
+                lbGerechten.Items.Clear();
+                foreach (Gerecht g in Administratie.Gerechten)
+                {
+                    lbGerechten.Items.Add(g.ToString());
+                }
+
+                lbBoodschappen.Items.Clear();
+                foreach (Boodschap b in Administratie.Boodschappenlijst.Boodschappen)
+                {
+                    lbBoodschappen.Items.Add(b.ToString());
+                }
             }
             catch (Exception e)
             {
 
                 MessageBox.Show(e.Message, "Error");
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (lbProducten.SelectedIndex >= 0)
+            {
+                try
+                {
+                    Administratie.Boodschappenlijst.VoegBoodschapToe(new Boodschap(Administratie.Producten[lbProducten.SelectedIndex], Convert.ToInt32(numAantal.Value)));
+                    RefreshInfo();
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.Message);
+                }
+                
             }
         }
     }

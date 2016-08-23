@@ -38,8 +38,12 @@
             this.btnSorteerZuinig = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.btnLooproute = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btnProductToevoegen = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.lbProductenGerechten = new System.Windows.Forms.ListBox();
+            this.numAantal = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.numAantal)).BeginInit();
             this.SuspendLayout();
             // 
             // lbBoodschappen
@@ -129,14 +133,15 @@
             this.btnLooproute.Text = "Looproute";
             this.btnLooproute.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // btnProductToevoegen
             // 
-            this.button4.Location = new System.Drawing.Point(200, 307);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(174, 23);
-            this.button4.TabIndex = 10;
-            this.button4.Text = "Voeg Product toe";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnProductToevoegen.Location = new System.Drawing.Point(200, 307);
+            this.btnProductToevoegen.Name = "btnProductToevoegen";
+            this.btnProductToevoegen.Size = new System.Drawing.Size(174, 23);
+            this.btnProductToevoegen.TabIndex = 10;
+            this.btnProductToevoegen.Text = "Voeg Product toe";
+            this.btnProductToevoegen.UseVisualStyleBackColor = true;
+            this.btnProductToevoegen.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
             // 
@@ -147,13 +152,40 @@
             this.button5.Text = "Voeg Gerecht toe";
             this.button5.UseVisualStyleBackColor = true;
             // 
+            // lbProductenGerechten
+            // 
+            this.lbProductenGerechten.FormattingEnabled = true;
+            this.lbProductenGerechten.Location = new System.Drawing.Point(584, 76);
+            this.lbProductenGerechten.Name = "lbProductenGerechten";
+            this.lbProductenGerechten.Size = new System.Drawing.Size(170, 95);
+            this.lbProductenGerechten.TabIndex = 12;
+            // 
+            // numAantal
+            // 
+            this.numAantal.Location = new System.Drawing.Point(254, 52);
+            this.numAantal.Name = "numAantal";
+            this.numAantal.Size = new System.Drawing.Size(120, 20);
+            this.numAantal.TabIndex = 13;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(200, 58);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(37, 13);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Aantal";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(590, 359);
+            this.ClientSize = new System.Drawing.Size(766, 359);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.numAantal);
+            this.Controls.Add(this.lbProductenGerechten);
             this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.btnProductToevoegen);
             this.Controls.Add(this.btnLooproute);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.btnSorteerZuinig);
@@ -167,7 +199,9 @@
             this.Name = "Form1";
             this.Text = "BoodschApp";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.numAantal)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -183,8 +217,11 @@
         private System.Windows.Forms.Button btnSorteerZuinig;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button btnLooproute;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnProductToevoegen;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.ListBox lbProductenGerechten;
+        private System.Windows.Forms.NumericUpDown numAantal;
+        private System.Windows.Forms.Label label1;
     }
 }
 

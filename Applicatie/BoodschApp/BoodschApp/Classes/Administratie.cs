@@ -14,6 +14,14 @@ namespace BoodschApp.Classes
         public static List<Product> Producten { get; set; }
 
         //Methods
+        public static void StartUp()
+        {
+            Boodschappenlijst = new Boodschappenlijst();
+            Winkels = new List<Winkel>();
+            Gerechten = new List<Gerecht>();
+            Producten = new List<Product>();
+
+        }
 
         /// <summary>
         /// Voegt gerecht toe aan de lijst van gerechten
@@ -55,6 +63,18 @@ namespace BoodschApp.Classes
             try
             {
                 Producten = DatabaseManager.GetAllProducten();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public static void GerechtenDatabase()
+        {
+            try
+            {
+                Gerechten = DatabaseManager.GetAllGerechtenMetProducten();
             }
             catch (Exception e)
             {

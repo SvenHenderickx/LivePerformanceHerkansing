@@ -22,7 +22,7 @@ namespace BoodschApp.Classes
 
         public override string ToString()
         {
-            return Naam + " " + Hoeveelheid.ToString();
+            return Naam + " - " + Hoeveelheid.ToString();
         }
     }
 }
