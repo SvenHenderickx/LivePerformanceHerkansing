@@ -172,4 +172,7 @@ INSERT INTO Winkel_product VALUES (14, 1, 2);
 INSERT INTO Winkel_product VALUES (15, 1, 1);
 INSERT INTO Winkel_product VALUES (16, 1, 0);
 
+INSERT INTO Boodschappenlijst VALUES(0);
+
+INSERT INTO Boodschappenlijst_product VALUES (0,0,1);
 commit;

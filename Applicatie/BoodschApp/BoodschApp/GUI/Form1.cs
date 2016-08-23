@@ -19,7 +19,6 @@ namespace BoodschApp
             InitializeComponent();
             Administratie.StartUp();
             RefreshInfo();
-            cbWinkels.SelectedIndex = 0;
         }
 
         private void lbGerechten_SelectedIndexChanged(object sender, EventArgs e)
@@ -112,8 +111,54 @@ namespace BoodschApp
 
         private void btnLooproute_Click(object sender, EventArgs e)
         {
-            Administratie.Boodschappenlijst.SorteerLoopRoute(Administratie.Winkels[cbWinkels.SelectedIndex]);
+            if (cbWinkels.SelectedIndex >= 0)
+            {
+                try
+                {
+                    Administratie.Boodschappenlijst.SorteerLoopRoute(Administratie.Winkels[cbWinkels.SelectedIndex]);
+                    RefreshInfo();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (FolderBrowserDialog opd = new FolderBrowserDialog())
+                {
+                    if (opd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        Administratie.Boodschappenlijst.Exporteer(opd.SelectedPath);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+        }
+
+        private void btnClearBoodschappenlijst_Click(object sender, EventArgs e)
+        {
+            Administratie.Boodschappenlijst.VerwijderBoodschappen();
+            Administratie.StartUp();
             RefreshInfo();
+        }
+
+        private void btnSorteerZuinig_Click(object sender, EventArgs e)
+        {
+            string alles = "";
+            foreach (ZuinigeGerechten zg in Administratie.SorterenWeinigRestjes())
+            {
+                alles += zg.ToString() + "\r";
+            }
         }
     }
 }

@@ -43,6 +43,7 @@
             this.lbProductenGerechten = new System.Windows.Forms.ListBox();
             this.numAantal = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnClearBoodschappenlijst = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numAantal)).BeginInit();
             this.SuspendLayout();
             // 
@@ -73,7 +74,7 @@
             // 
             // btnProductBeheer
             // 
-            this.btnProductBeheer.Location = new System.Drawing.Point(13, 13);
+            this.btnProductBeheer.Location = new System.Drawing.Point(181, 12);
             this.btnProductBeheer.Name = "btnProductBeheer";
             this.btnProductBeheer.Size = new System.Drawing.Size(131, 23);
             this.btnProductBeheer.TabIndex = 3;
@@ -82,7 +83,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(150, 13);
+            this.button1.Location = new System.Drawing.Point(318, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(131, 23);
             this.button1.TabIndex = 4;
@@ -91,7 +92,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(287, 12);
+            this.button2.Location = new System.Drawing.Point(455, 12);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(131, 23);
             this.button2.TabIndex = 5;
@@ -109,12 +110,13 @@
             // 
             // btnSorteerZuinig
             // 
-            this.btnSorteerZuinig.Location = new System.Drawing.Point(396, 49);
+            this.btnSorteerZuinig.Location = new System.Drawing.Point(396, 47);
             this.btnSorteerZuinig.Name = "btnSorteerZuinig";
             this.btnSorteerZuinig.Size = new System.Drawing.Size(182, 23);
             this.btnSorteerZuinig.TabIndex = 7;
             this.btnSorteerZuinig.Text = "Sorteer Gerechten";
             this.btnSorteerZuinig.UseVisualStyleBackColor = true;
+            this.btnSorteerZuinig.Click += new System.EventHandler(this.btnSorteerZuinig_Click);
             // 
             // button3
             // 
@@ -124,6 +126,7 @@
             this.button3.TabIndex = 8;
             this.button3.Text = "Exporteer";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // btnLooproute
             // 
@@ -179,11 +182,22 @@
             this.label1.TabIndex = 14;
             this.label1.Text = "Aantal";
             // 
+            // btnClearBoodschappenlijst
+            // 
+            this.btnClearBoodschappenlijst.Location = new System.Drawing.Point(13, 12);
+            this.btnClearBoodschappenlijst.Name = "btnClearBoodschappenlijst";
+            this.btnClearBoodschappenlijst.Size = new System.Drawing.Size(162, 23);
+            this.btnClearBoodschappenlijst.TabIndex = 15;
+            this.btnClearBoodschappenlijst.Text = "Boodschappenlijst gekocht";
+            this.btnClearBoodschappenlijst.UseVisualStyleBackColor = true;
+            this.btnClearBoodschappenlijst.Click += new System.EventHandler(this.btnClearBoodschappenlijst_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(766, 367);
+            this.Controls.Add(this.btnClearBoodschappenlijst);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numAantal);
             this.Controls.Add(this.lbProductenGerechten);
@@ -225,6 +239,7 @@
         private System.Windows.Forms.ListBox lbProductenGerechten;
         private System.Windows.Forms.NumericUpDown numAantal;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnClearBoodschappenlijst;
     }
 }
 

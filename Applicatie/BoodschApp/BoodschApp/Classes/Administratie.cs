@@ -16,11 +16,13 @@ namespace BoodschApp.Classes
         //Methods
         public static void StartUp()
         {
-            Boodschappenlijst = new Boodschappenlijst();
             Winkels = new List<Winkel>();
             Gerechten = new List<Gerecht>();
             Producten = new List<Product>();
-
+            ProductenDatabase();
+            BoodschappenlijstDatabase();
+            GerechtenDatabase();
+            WinkelsDatabase();
         }
 
         /// <summary>
@@ -53,9 +55,23 @@ namespace BoodschApp.Classes
         /// <summary>
         /// Geeft een overzicht van de combinaties van gerechten die samen het minste resten over laten
         /// </summary>
-        public static List<string> SorterenWeinigRestjes()
+        public static List<ZuinigeGerechten> SorterenWeinigRestjes()
         {
-            return null;
+            List<ZuinigeGerechten> zuinigeGerechten = new List<ZuinigeGerechten>();
+            foreach (Gerecht ge in Gerechten)
+            {
+                ZuinigeGerechten tempZuinigeGerechten = new ZuinigeGerechten();
+                tempZuinigeGerechten.GerechtToevoegen(ge);
+                foreach (Gerecht ger in Gerechten)
+                {
+                    if (!tempZuinigeGerechten.GerechtToevoegen(ger))
+                    {
+                        break;
+                    }
+                }
+                zuinigeGerechten.Add(tempZuinigeGerechten);
+            }
+            return new List<ZuinigeGerechten>();
         }
 
         /// <summary>
@@ -93,6 +109,19 @@ namespace BoodschApp.Classes
             try
             {
                 Winkels = DatabaseManager.AlleWinkelsMetProducten();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public static void BoodschappenlijstDatabase()
+        {
+            try
+            {
+                Boodschappenlijst = new Boodschappenlijst();
+                Boodschappenlijst.VoegBoodschappenToe(DatabaseManager.GetAllBoodschappen(Producten));
             }
             catch (Exception e)
             {

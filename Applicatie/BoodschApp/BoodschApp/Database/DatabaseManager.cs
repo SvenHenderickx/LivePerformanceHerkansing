@@ -295,6 +295,12 @@ namespace BoodschApp
             }
         }
 
+        /// <summary>
+        /// Alle producten die en winkel verkoopt
+        /// </summary>
+        /// <param name="winkel"></param>
+        /// <param name="producten"></param>
+        /// <returns>Een lijst van de producten van de winkel</returns>
         public static List<WinkelOrde> GetProductenFromWinkel(Winkel winkel, List<Product> producten)
         {
             try
@@ -328,6 +334,88 @@ namespace BoodschApp
             {
 
                 throw e;
+            }
+            finally
+            {
+                _Connection.Close();
+            }
+        }
+
+        /// <summary>
+        /// Alle boodschappen van de boodschappenlijst ophalen uit de database
+        /// </summary>
+        /// <param name="producten"></param>
+        /// <returns></returns>
+        public static List<Boodschap> GetAllBoodschappen(List<Product> producten)
+        {
+            try
+            {
+                List<Boodschap> tempBoodschappen = new List<Boodschap>();
+                OracleCommand cmd = CreateOracleCommand("SELECT * FROM BOODSCHAPPENLIJST_PRODUCT");
+                OracleDataReader reader = ExecuteQuery(cmd);
+                while (reader.Read())
+                {
+                    int id = Convert.ToInt32(reader["productId"]);
+                    int aantal = Convert.ToInt32(reader["aantal"]);
+                    Product product = null;
+                    foreach (Product p in producten)
+                    {
+                        if (p.Id == id)
+                        {
+                            product = p;
+                        }
+                    }
+                    tempBoodschappen.Add(new Boodschap(product, aantal));
+                }
+                return tempBoodschappen;
+            }
+            catch (OracleException e)
+            {
+
+                throw e;
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+            finally
+            {
+                _Connection.Close();
+            }
+        }
+
+        public static bool BoodschapToevoegen(Boodschap boodschap)
+        {
+            try
+            {
+                OracleCommand command = CreateOracleCommand("INSERT INTO BOODSCHAPPENLIJST_PRODUCT VALUES (:productId, 0, :aantal)");
+                command.Parameters.Add(":productId", boodschap.Product.Id);
+                command.Parameters.Add(":aantal", boodschap.Aantal);
+
+                return ExecuteNonQuery(command);
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+            finally
+            {
+                _Connection.Close();
+            }
+        }
+
+        public static bool BoodschappenVerwijderen()
+        {
+            try
+            {
+                OracleCommand command = CreateOracleCommand("DELETE FROM BOODSCHAPPENLIJST_PRODUCT");
+
+                return ExecuteNonQuery(command);
+            }
+            catch (Exception exception)
+            {
+                throw exception;
             }
             finally
             {

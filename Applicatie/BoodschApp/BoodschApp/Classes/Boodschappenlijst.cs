@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,10 +40,19 @@ namespace BoodschApp.Classes
             if (boodschap.Aantal >= 1)
             {
                 Boodschappen.Add(boodschap);
+                DatabaseManager.BoodschapToevoegen(boodschap);
             }
             else
             {
                 throw new BoodschapException("Kan dat aantal niet toevoegen.");
+            }
+        }
+
+        public void VoegBoodschappenToe(List<Boodschap> inv)
+        {
+            foreach (Boodschap b in inv)
+            {
+                Boodschappen.Add(b);
             }
         }
 
@@ -90,6 +100,10 @@ namespace BoodschApp.Classes
         public void SorteerLoopRoute(Winkel winkel)
         {
             List<Boodschap> tempBoodschappen = new List<Boodschap>();
+            if (Boodschappen.Count == 0)
+            {
+                throw new BoodschapException("Boodscappenlijst is leeg.");
+            }
             winkel.Producten.Sort();
             foreach (WinkelOrde wo in winkel.Producten)
             {
@@ -112,9 +126,30 @@ namespace BoodschApp.Classes
         /// </summary>
         /// <param name="path"></param>
         /// <returns>geeft aan of het is geslaagd</returns>
-        public bool Exporteer(string path)
+        public void Exporteer(string path)
         {
-            return false;
+            using (StreamWriter stream = new StreamWriter(path + "/boodschappenlijst.txt"))
+            {
+                if (Boodschappen.Count == 0)
+                {
+                    throw new BoodschapException("Boodschappenlijst is leeg.");
+                }
+                else
+                {
+                    foreach (Boodschap b in Boodschappen)
+                    {
+                        stream.WriteLine(b.Aantal + "\t" + b.Product.Naam);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Alle boodschappen uit de lijst halen
+        /// </summary>
+        public void VerwijderBoodschappen()
+        {
+            DatabaseManager.BoodschappenVerwijderen();
         }
     }
 }
